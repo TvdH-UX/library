@@ -26,10 +26,25 @@ function addBookToLibrary(){
   const author = prompt('Who is the author?');
   const pages = prompt('How many pages does it have?');
   const read = prompt('Have you read it already?');
-  // console.log(title, author, pages, read);
   const book = new Book(title, author, pages, read);
-  console.log(book);
-  myLibrary.push(book);
-  console.log(myLibrary);
+  myLibrary.push(book); //change this to appendChild?
 }
 
+// Function which creates a new book-card and appends it into the books grid
+function createCard(){
+  const books = document.querySelector(".books");
+  const card = document.createElement('div');
+  card.classList.add('book-card');
+  books.appendChild(card);
+}
+
+// Function which prints the books in the libary to the screen
+function printBooks(array){
+  array.forEach(book => {
+    for (let info in book) {
+
+      console.log(book[info]);
+    }
+    
+  });
+}

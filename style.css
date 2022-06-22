@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+
+.flex-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header,
+main,
+footer {
+  padding: 1rem;
+}
+
+header {
+  display: flex;
+  background-color: antiquewhite;
+  height: 10vh;
+  align-items: center;
+  justify-content: center;
+}
+
+main {
+  background-color:honeydew;
+  height: 100%;
+}
+
+.books {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.book-card {
+  padding: 20px;
+  background-color: aquamarine;
+  border-radius: 6px;
+}
+
+footer {
+  background-color:cornflowerblue;
+  margin-top: auto;
+}
