@@ -38,13 +38,40 @@ function createCard(){
   books.appendChild(card);
 }
 
+function getCardContent(object){
+  const bookTitle = document.createElement('h3');
+  bookTitle = object.title;
+}
+
 // Function which prints the books in the libary to the screen
 function printBooks(array){
+  let books = document.querySelector(".books");
   array.forEach(book => {
-    for (let info in book) {
+    // Generate card and add class
+    let card = document.createElement('div');
+    card.classList.add('book-card');
 
-      console.log(book[info]);
-    }
-    
+    // Generate title 
+    let bookTitle = document.createElement('h3');
+    bookTitle.textContent = book.title;
+
+    // Generate author
+    let bookAuthor = document.createElement('p');
+    bookAuthor.textContent = book.author;
+
+    // Generate pages
+    let bookPages = document.createElement('p');
+    bookPages.textContent = book.pages;
+
+    // Generate read
+    let bookRead = document.createElement('p');
+    bookRead.textContent = book.read;
+
+    // Append card and content
+    books.appendChild(card);
+    card.appendChild(bookTitle);
+    card.appendChild(bookAuthor);
+    card.appendChild(bookPages);
+    card.appendChild(bookRead);
   });
-}
+};
