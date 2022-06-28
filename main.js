@@ -16,6 +16,9 @@ const mythos = new Book('Mythos', 'Stephen Fry', '350', 'Yes');
 myLibrary.push(it);
 myLibrary.push(mythos);
 console.log(myLibrary)
+if (myLibrary.some(book => book.title === 'Mythos')){
+  console.log("Mythos is in library")
+}
 
 // Function which takes a user's input
 // 
@@ -28,24 +31,13 @@ function addBookToLibrary(){
   const read = prompt('Have you read it already?');
   const book = new Book(title, author, pages, read);
   myLibrary.push(book);
-}
-
-// Function which creates a new book-card and appends it into the books grid
-function createCard(){
-  const books = document.querySelector(".books");
-  const card = document.createElement('div');
-  card.classList.add('book-card');
-  books.appendChild(card);
-}
-
-function getCardContent(object){
-  const bookTitle = document.createElement('h3');
-  bookTitle = object.title;
+  printBooks(myLibrary);
 }
 
 // Function which prints the books in the libary to the screen
 function printBooks(array){
   let books = document.querySelector(".books");
+  books.replaceChildren();
   array.forEach(book => {
     // Generate card and add class
     let card = document.createElement('div');
