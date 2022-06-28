@@ -27,7 +27,7 @@ function addBookToLibrary(){
   const pages = prompt('How many pages does it have?');
   const read = prompt('Have you read it already?');
   const book = new Book(title, author, pages, read);
-  myLibrary.push(book); //change this to appendChild?
+  myLibrary.push(book);
 }
 
 // Function which creates a new book-card and appends it into the books grid
@@ -75,3 +75,7 @@ function printBooks(array){
     card.appendChild(bookRead);
   });
 };
+
+// Button to add book with
+const addBookBtn = document.getElementById("btn-add-book");
+addBookBtn.addEventListener("click", addBookToLibrary);
