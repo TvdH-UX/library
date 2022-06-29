@@ -59,9 +59,23 @@ main {
 }
 
 .book-card {
+  display: grid;
   padding: 20px;
   background-color: aquamarine;
   border-radius: 6px;
+}
+
+.delete-book {
+  justify-self: flex-end;
+  border: none;
+  padding: 24px 20px;
+  background: url(/images/delete.png) no-repeat center;
+}
+
+.delete-book:hover {
+  cursor: pointer;
+  border-radius: 6px;
+  background-color: red;
 }
 
 footer {
