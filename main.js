@@ -12,9 +12,11 @@ function Book(title, author, pages, read) {
 // Example of a book being created with Book constructor
 const it = new Book('It', 'Stephen King', '600', 'No');
 const mythos = new Book('Mythos', 'Stephen Fry', '350', 'Yes');
+const harryPotter = new Book(`Harry Potter and the Philosopher's Stone`, 'J.K. Rowling', '300', 'Yes');
 
 myLibrary.push(it);
 myLibrary.push(mythos);
+myLibrary.push(harryPotter);
 console.log(myLibrary)
 if (myLibrary.some(book => book.title === 'Mythos')){
   console.log("Mythos is in library")
@@ -61,7 +63,12 @@ function printBooks(array){
     let bookRead = document.createElement('p');
     bookRead.textContent = book.read;
 
-    // Generate read
+    // Generate read button
+    let bookReadBtn = document.createElement('button');
+    bookReadBtn.classList.add('read-book');
+    bookReadBtn.textContent = "Read?";
+
+    // Generate delete button
     let bookDelete = document.createElement('button');
     bookDelete.classList.add('delete-book');
 
@@ -72,9 +79,10 @@ function printBooks(array){
     card.appendChild(bookAuthor);
     card.appendChild(bookPages);
     card.appendChild(bookRead);
+    card.appendChild(bookReadBtn);
     card.appendChild(bookDelete);
-    getDeleteBtns();
   });
+  getDeleteBtns();
 };
 
 // Button to add book with
@@ -86,18 +94,28 @@ function getDeleteBtns() {
   const deleteBookBtns = document.querySelectorAll(".delete-book");
   deleteBookBtns.forEach((button) => {
     button.addEventListener("click", () => {
-      // console.log(button.parentElement.getAttribute('title'))
       const bookTitle = button.parentElement.getAttribute('title');
-      console.log(bookTitle);
-
       const index = myLibrary.findIndex(e => e.title === bookTitle);
-      console.log(index);
-
       myLibrary.splice(index, 1);
-
       printBooks(myLibrary);
     })
   });
 }
+
+// Book prototype change read status
+Book.prototype.changeReadStatus = function() {
+  console.log(this.read);
+  this.read = "No";
+  console.log(this.read);
+  printBooks(myLibrary);
+}
+
+// Read book button
+// function getReadBtns() {
+//   const toggleReadBtns = document.querySelectorAll(".read-book");
+//   toggleReadBtns.forEach((button) => {
+//     button.addEventListener("click", this.changeReadStatus)
+//   })
+// }
 
 printBooks(myLibrary);
