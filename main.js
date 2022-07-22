@@ -10,29 +10,16 @@ function Book(title, author, pages, read) {
 }
 
 // Example of a book being created with Book constructor
-const it = new Book('It', 'Stephen King', '600', 'No');
-const mythos = new Book('Mythos', 'Stephen Fry', '350', 'Yes');
-const harryPotter = new Book(`Harry Potter and the Philosopher's Stone`, 'J.K. Rowling', '300', 'Yes');
+const it = new Book('It', 'Stephen King', '600', false);
+const mythos = new Book('Mythos', 'Stephen Fry', '350', true);
+const harryPotter = new Book('Harry Potter', 'J.K. Rowling', '300', true);
 
 myLibrary.push(it);
 myLibrary.push(mythos);
 myLibrary.push(harryPotter);
-console.log(myLibrary)
-if (myLibrary.some(book => book.title === 'Mythos')){
-  console.log("Mythos is in library")
-}
 
-// Function which takes a user's input
-// 
-// Store the new book into the myLibrary array
-
-function addBookToLibrary(){
-  const title = prompt('What is the book called?');
-  const author = prompt('Who is the author?');
-  const pages = prompt('How many pages does it have?');
-  const read = prompt('Have you read it already?');
+function addBookToLibrary(title, author, pages, read){
   const book = new Book(title, author, pages, read);
-  // Set data attribute to title?
   myLibrary.push(book);
   printBooks(myLibrary);
 }
@@ -61,7 +48,11 @@ function printBooks(array){
 
     // Generate read
     let bookRead = document.createElement('p');
-    bookRead.textContent = book.read;
+    if (book.read === true){
+      bookRead.textContent = "Read"
+    } else {
+      bookRead.textContent = "Not read";
+    }
 
     // Generate read button
     let bookReadBtn = document.createElement('button');
@@ -71,6 +62,7 @@ function printBooks(array){
     // Generate delete button
     let bookDelete = document.createElement('button');
     bookDelete.classList.add('delete-book');
+    bookDelete.textContent = "Delete"
 
     // Append card and content
     books.appendChild(card);
@@ -87,7 +79,22 @@ function printBooks(array){
 
 // Button to add book with
 const addBookBtn = document.getElementById("btn-add-book");
-addBookBtn.addEventListener("click", addBookToLibrary);
+addBookBtn.addEventListener("click", function() {
+  document.querySelector(".form-popup-bg").style.display = 'flex';
+}); // change to open the popup
+
+const saveBookBtn = document.getElementById("form-add-book-btn");
+saveBookBtn.addEventListener("click", handleBookSave); 
+
+function handleBookSave() {
+  const title = document.getElementById("book-title").value;
+  const author = document.getElementById("book-author").value;
+  const pages = document.getElementById("book-pages").value;
+  const read = document.getElementById("read-checkbox").checked;
+  // console.log(title, author, pages, read.checked);
+  document.querySelector(".form-popup-bg").style.display = 'none';
+  addBookToLibrary(title, author, pages, read)
+};
 
 // Function to get delete buttons
 function getDeleteBtns() {
@@ -102,13 +109,14 @@ function getDeleteBtns() {
   });
 }
 
+
 // Book prototype change read status
-Book.prototype.changeReadStatus = function() {
-  console.log(this.read);
-  this.read = "No";
-  console.log(this.read);
-  printBooks(myLibrary);
-}
+// Book.prototype.changeReadStatus = function() {
+//   console.log(this.read);
+//   this.read = "No";
+//   console.log(this.read);
+//   printBooks(myLibrary);
+// }
 
 // Read book button
 // function getReadBtns() {
