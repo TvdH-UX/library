@@ -44,7 +44,7 @@ function printBooks(array){
 
     // Generate pages
     let bookPages = document.createElement('p');
-    bookPages.textContent = book.pages;
+    bookPages.textContent = book.pages + " pages";
 
     // Generate read
     let bookRead = document.createElement('p');
@@ -75,9 +75,10 @@ function printBooks(array){
     card.appendChild(bookDelete);
   });
   getDeleteBtns();
+  getReadBtns();
 };
 
-// Button to add book with
+// Functions to add books with
 const addBookBtn = document.getElementById("btn-add-book");
 addBookBtn.addEventListener("click", function() {
   document.querySelector(".form-popup-bg").style.display = 'flex';
@@ -102,28 +103,27 @@ function getDeleteBtns() {
   deleteBookBtns.forEach((button) => {
     button.addEventListener("click", () => {
       const bookEntry = button.parentElement.getAttribute('entry');
-      console.log(bookEntry)
       myLibrary.splice(bookEntry, 1);
       printBooks(myLibrary);
     })
   });
 }
 
+// Function to change read status
+Book.prototype.changeReadStatus = function() {
+  this.read = this.read ? false : true;
+  printBooks(myLibrary);
+}
 
-// Book prototype change read status
-// Book.prototype.changeReadStatus = function() {
-//   console.log(this.read);
-//   this.read = "No";
-//   console.log(this.read);
-//   printBooks(myLibrary);
-// }
-
-// Read book button
-// function getReadBtns() {
-//   const toggleReadBtns = document.querySelectorAll(".read-book");
-//   toggleReadBtns.forEach((button) => {
-//     button.addEventListener("click", this.changeReadStatus)
-//   })
-// }
+// Function to get read buttons
+function getReadBtns() {
+  const readBookBtns = document.querySelectorAll(".read-book");
+  readBookBtns.forEach((button) => {
+    button.addEventListener("click", () => {
+      const bookEntry = button.parentElement.getAttribute('entry');
+      myLibrary[bookEntry].changeReadStatus();
+    })
+  })
+}
 
 printBooks(myLibrary);
