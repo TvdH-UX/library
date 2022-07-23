@@ -79,22 +79,48 @@ function printBooks(array){
 };
 
 // Functions to add books with
+const form = document.getElementById("book-form");
+let title = document.getElementById("book-title").value;
+let author = document.getElementById("book-author").value;
+let pages = document.getElementById("book-pages").value;
+let read;
+
+let titleBook = document.getElementById("book-title");
+let authorBook = document.getElementById("book-author");
+let pagesBook = document.getElementById("book-pages");
+
+const saveBookBtn = document.getElementById("form-add-book-btn");
+saveBookBtn.addEventListener("click", handleBookSave);
+
+function validateInput(){
+  title = document.getElementById("book-title").value;
+  author = document.getElementById("book-author").value;
+  pages = document.getElementById("book-pages").value;
+  if (title && author && pages){
+    saveBookBtn.disabled = false;
+  } else {
+    saveBookBtn.disabled = true;
+  }
+}
+
+titleBook.addEventListener('blur', validateInput);
+authorBook.addEventListener('blur', validateInput);
+pagesBook.addEventListener('blur', validateInput);
+
 const addBookBtn = document.getElementById("btn-add-book");
 addBookBtn.addEventListener("click", function() {
   document.querySelector(".form-popup-bg").style.display = 'flex';
 });
 
-const saveBookBtn = document.getElementById("form-add-book-btn");
-saveBookBtn.addEventListener("click", handleBookSave); 
-
 function handleBookSave() {
-  const title = document.getElementById("book-title").value;
-  const author = document.getElementById("book-author").value;
-  const pages = document.getElementById("book-pages").value;
-  const read = document.getElementById("read-checkbox").checked;
-  // console.log(title, author, pages, read.checked);
+  title = document.getElementById("book-title").value;
+  author = document.getElementById("book-author").value;
+  pages = document.getElementById("book-pages").value;
+  read = document.getElementById("read-checkbox").checked;
   document.querySelector(".form-popup-bg").style.display = 'none';
-  addBookToLibrary(title, author, pages, read)
+  addBookToLibrary(title, author, pages, read);
+  form.reset();
+  saveBookBtn.disabled = true;
 };
 
 // Function to get delete buttons
