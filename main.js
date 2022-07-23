@@ -28,10 +28,10 @@ function addBookToLibrary(title, author, pages, read){
 function printBooks(array){
   let books = document.querySelector(".books");
   books.replaceChildren();
-  array.forEach(book => {
+  array.forEach((book, index) => {
     // Generate card and add class
     let card = document.createElement('div');
-    card.setAttribute("title", book.title)
+    card.setAttribute("entry", index)
     card.classList.add('book-card');
 
     // Generate title 
@@ -49,7 +49,7 @@ function printBooks(array){
     // Generate read
     let bookRead = document.createElement('p');
     if (book.read === true){
-      bookRead.textContent = "Read"
+      bookRead.textContent = "Read";
     } else {
       bookRead.textContent = "Not read";
     }
@@ -57,7 +57,7 @@ function printBooks(array){
     // Generate read button
     let bookReadBtn = document.createElement('button');
     bookReadBtn.classList.add('read-book');
-    bookReadBtn.textContent = "Read?";
+    bookReadBtn.textContent = "Read";
 
     // Generate delete button
     let bookDelete = document.createElement('button');
@@ -81,7 +81,7 @@ function printBooks(array){
 const addBookBtn = document.getElementById("btn-add-book");
 addBookBtn.addEventListener("click", function() {
   document.querySelector(".form-popup-bg").style.display = 'flex';
-}); // change to open the popup
+});
 
 const saveBookBtn = document.getElementById("form-add-book-btn");
 saveBookBtn.addEventListener("click", handleBookSave); 
@@ -101,9 +101,9 @@ function getDeleteBtns() {
   const deleteBookBtns = document.querySelectorAll(".delete-book");
   deleteBookBtns.forEach((button) => {
     button.addEventListener("click", () => {
-      const bookTitle = button.parentElement.getAttribute('title');
-      const index = myLibrary.findIndex(e => e.title === bookTitle);
-      myLibrary.splice(index, 1);
+      const bookEntry = button.parentElement.getAttribute('entry');
+      console.log(bookEntry)
+      myLibrary.splice(bookEntry, 1);
       printBooks(myLibrary);
     })
   });
